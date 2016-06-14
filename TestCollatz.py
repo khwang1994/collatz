@@ -28,50 +28,55 @@ class TestCollatz (TestCase):
     # ----
 
     def test_read(self):
-        s = "1 10\n"
-        i, j = collatz_read(s)
-        self.assertEqual(i,  1)
-        self.assertEqual(j, 10)
+        input_str = "1 10\n"
+        start, end = collatz_read(input_str)
+        self.assertEqual(start,  1)
+        self.assertEqual(end, 10)
 
     # ----
     # eval
     # ----
 
     def test_eval_1(self):
-        v = collatz_eval(1, 10)
-        self.assertEqual(v, 1)
+        result = collatz_eval(1, 10)
+        self.assertEqual(result, 20)
 
     def test_eval_2(self):
-        v = collatz_eval(100, 200)
-        self.assertEqual(v, 1)
+        result = collatz_eval(100, 200)
+        self.assertEqual(result, 125)
 
     def test_eval_3(self):
-        v = collatz_eval(201, 210)
-        self.assertEqual(v, 1)
+        result = collatz_eval(201, 210)
+        self.assertEqual(result, 89)
 
     def test_eval_4(self):
-        v = collatz_eval(900, 1000)
-        self.assertEqual(v, 1)
+        result = collatz_eval(900, 1000)
+        self.assertEqual(result, 174)
 
+    def test_eval_5(self):
+        result = collatz_eval(1, 1)
+        self.assertEqual(result, 1)
+
+    
     # -----
     # print
     # -----
 
     def test_print(self):
-        w = StringIO()
-        collatz_print(w, 1, 10, 20)
-        self.assertEqual(w.getvalue(), "1 10 20\n")
+        result = StringIO()
+        collatz_print(result, 1, 10, 20)
+        self.assertEqual(result.getvalue(), "1 10 20\n")
 
     # -----
     # solve
     # -----
 
     def test_solve(self):
-        r = StringIO("1 10\n100 200\n201 210\n900 1000\n")
-        w = StringIO()
-        collatz_solve(r, w)
+        input_str = StringIO("1 10\n100 200\n201 210\n900 1000\n")
+        result = StringIO()
+        collatz_solve(input_str, result)
         self.assertEqual(
-            w.getvalue(), "1 10 1\n100 200 1\n201 210 1\n900 1000 1\n")
+            result.getvalue(), "1 10 20\n100 200 125\n201 210 89\n900 1000 174\n")
 
 # ----
 # main
