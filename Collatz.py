@@ -32,7 +32,27 @@ def collatz_eval(start, end):
     return the max cycle length of the range [start, end]
     """
     # <your code>
-    return 1
+
+    assert start > 0
+    assert end < 1000000
+
+    mcl = 0
+
+    for num in range(start, end + 1):
+        curr_cl = 1
+        while num != 1:
+            if num % 2 == 0:
+                num = num // 2
+            else:
+                num = 3 * num + 1
+
+            curr_cl += 1
+
+
+        if curr_cl > mcl:
+            mcl = curr_cl
+
+    return mcl
 
 # -------------
 # collatz_print
