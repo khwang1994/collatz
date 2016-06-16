@@ -113,21 +113,15 @@ def eager_cache_init(val):
     eager_cache[0] = 0 #    place holder, so cyc len can be looked up directly by value
     eager_cache[1] = 1
     eager_cache[2] = 2
-    eager_cache[3] = 8
-    eager_cache[4] = 3
 
-    for power in range(3, 20):
+    # fill in eager cache with powers of 2
+    for power in range(2, 20):
         eager_cache[2 ** power] = power + 1
 
-    index = 999999
-    eager_cache[index] = collatz_cycle_len(index)
-    """
-    while index > 2:
-        if eager_cache[index] != 0:
+    for index in range(3, 4):
+        if eager_cache[index] is 0:
+            print("finding cycle len...")
             eager_cache[index] = collatz_cycle_len(index)
-            index -= 1
-    """
-    return 0
 
 # ------------
 # collatz_cycle_length
@@ -138,37 +132,39 @@ def collatz_cycle_len(num):
     Returns cycle length of num
     """
 
-    #   as cycle len of num is calculated, traceback_cache will store values along
+    #   as cycle len of num is calculated, tb (traceback) cache will store values along
     #   the way and use the cycle len of num to determine the cycle len of each of
     #   these values
-    traceback_cache = [num] 
+    #   index is the amount you subtract from the cycle length of the initial input in
+    #   order to find the cycle length of the value stored 
+    tb_cache = [num] 
     cycle_len = 1
 
     while num > 1:
         int(num)
 
         #   case in which you run into a value already in the eager cache
-        if num < len(eager_cache):
-            if eager_cache[num] != 0:
-                return cycle_len + eager_cache[num] - 1
-
+        if num < len(eager_cache) and eager_cache[num] != 0: 
+                cycle_len = cycle_len + eager_cache[int(num)] - 1
+                num = 1
         #   even number case
         elif num % 2 == 0:
             num /= 2
             cycle_len += 1
-            traceback_cache += [num]
+            tb_cache += [num]
 
         #   odd number case
         else:
             num = (3 * num + 1) // 2
             cycle_len += 2
-            traceback_cache += [0, num]
+            tb_cache += [0, num]
 
     #   going back through traceback_cache and calculated cycle lengths for
     #   each value based on the cycle len of num
-    for index in traceback_cache:
-        val = eager_cache[traceback[index]]
-        if val < len(eager_cache):  # value must be within the given bounds
+    for index in range(len(tb_cache)):
+        val = eager_cache[tb_cache[index]]
+        if val < len(eager_cache) and eager_cache[val] is 0:  # value must be within the given bounds
+            print("eager_cache[", val, "]", "=", cycle_len, "-", index)
             eager_cache[val] = cycle_len - index
 
     return int(cycle_len)
@@ -203,7 +199,7 @@ def collatz_solve(input_str, result):
     random = eager_cache_init(0)
 
     assert eager_cache[4] is 3
-    assert eager_cache[8] is 4
+    #assert eager_cache[8] is 4
 
     print("cache filled")
 
