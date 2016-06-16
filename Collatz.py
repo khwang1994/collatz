@@ -6,6 +6,9 @@
 # Glenn P. Downing
 # ---------------------------
 
+lazy_cache = [0] * 1000001
+lazy_cache[1] = 1
+
 # ------------
 # collatz_read
 # ------------
@@ -33,31 +36,34 @@ def collatz_eval(start, end):
     """
     # <your code>
 
-    start = min(start, end) #   start of the range
-    end = max(start, end) # end of the range
+    """
+    first = min(start, end) #   first val in the range
+    last = max(start, end) #    last val in the range
     mcl = 0     #   stores the max cycle length
 
-    assert start > 0 
-    assert end < 1000000
+    assert first > 0 
+    assert last < 1000000
+    assert first <= last 
 
-    for num in range(start, end + 1):
+    for num in range(first, last + 1):
         curr_cl = 1
+        # print("CURRENT NUM:", num)
         while num != 1:
             if num % 2 == 0:
                 num = num // 2
                 curr_cl += 1
             else:
-                num = (3 * num + 1) // 2
+                num = num + (num >> 1) + 1
                 curr_cl += 2
+            # print("     ", num, "   cycle len:", curr_cl)
 
         if curr_cl > mcl:
             mcl = curr_cl
 
     """
-    cache = [0] * 1000001
 
+    """
     #   eager cache intialization
-    cache[1] = 1
     for num in range(1, 1000000):
         index = num #   save the initial num as index into cache
         cyc_len = 1
@@ -89,7 +95,29 @@ def collatz_eval(start, end):
 
     """
 
-    return mcl
+    return 1
+
+
+# ------------
+# collatz_cycle_length
+# ------------
+
+def collatz_cycle_length(num):
+    """
+    Returns cycle length of num
+    """
+    cycle_len = 1
+
+    while num is not 1:
+        if num % 2 == 0:
+            num /= 2
+            cycle_len += 1
+        else:
+            num = num + (num >> 1) + 1
+            cycle_len += 2
+
+    return cycle_len
+
 
 # -------------
 # collatz_print
@@ -117,7 +145,7 @@ def collatz_solve(input_str, result):
     result is a writer
     """
     for val in input_str:
-        if not val.split():
+        if val.strip() == "":
             break
         start, end = collatz_read(val)
         mcl = collatz_eval(start, end)
