@@ -6,7 +6,9 @@
 # Glenn P. Downing
 # ---------------------------
 
-eager_cache = [0] * 1000000
+EAGER_CACHE = [0] * 1000000
+MAX_VAL = 837799  #   value with the largest cycle length in the range
+MAX_CL = 525
 
 # ------------
 # collatz_read
@@ -37,91 +39,39 @@ def collatz_eval(start, end):
 
     first = min(start, end) #   first val in the range
     last = max(start, end) #    last val in the range
-    mcl = eager_cache[first]    #   stores the max cycle length
+    mcl = EAGER_CACHE[first]    #   stores the max cycle length
 
-    assert first > 0 
+    assert first > 0
     assert last < 1000000
-    assert first <= last 
+    assert first <= last
+
+    """
+    if first <= MAX_VAL <= last :
+        return MAX_CL
+    """
 
     for num in range(first + 1, last + 1):
-        if eager_cache[num] > mcl:
-            mcl = eager_cache[num]
-
-    """
-    first = min(start, end) #   first val in the range
-    last = max(start, end) #    last val in the range
-    mcl = 0     #   stores the max cycle length
-
-    assert first > 0 
-    assert last < 1000000
-    assert first <= last 
-
-    for num in range(first, last + 1):
-        curr_cl = 1
-        # print("CURRENT NUM:", num)
-        while num != 1:
-            if num % 2 == 0:
-                num = num // 2
-                curr_cl += 1
-            else:
-                num = num + (num >> 1) + 1
-                curr_cl += 2
-            # print("     ", num, "   cycle len:", curr_cl)
-
-        if curr_cl > mcl:
-            mcl = curr_cl
-
-    """
-
-    """
-    #   eager cache intialization
-    for num in range(1, 1000000):
-        index = num #   save the initial num as index into cache
-        cyc_len = 1
-
-        cache[2 ** num] = num + 1
-
-        while num is not 1:
-            #   case 1: run into value already in cache
-            num = int(num)
-            if num < 1000000:
-                x = cache[num]
-                if x != 0:
-                    cyc_len = (cyc_len + x) - 1
-                    num = 1
-
-            #   case 2: even num
-            else:
-                if num % 2 == 0:
-                    num /= 2
-                    cyc_len += 1
-
-            #   case 3: odd num
-                else: 
-                    num = (3 * num + 1) // 2
-                    cyc_len += 2
-
-        cache[index] = cyc_len
-        print(cyc_len)
-
-    """
+        if EAGER_CACHE[num] > mcl:
+            mcl = EAGER_CACHE[num]
 
     return mcl
 
-def eager_cache_init(val):
+def eager_cache_init():
 
-    eager_cache[0] = 0 #    place holder, so cyc len can be looked up directly by value
-    eager_cache[1] = 1
-    eager_cache[2] = 2
+    EAGER_CACHE[0] = 0 #    place holder, so cyc len can be looked up directly by value
+    EAGER_CACHE[1] = 1
+    EAGER_CACHE[2] = 2
 
     # fill in eager cache with powers of 2
     for power in range(2, 20):
-        eager_cache[2 ** power] = power + 1
+        EAGER_CACHE[2 ** power] = power + 1
 
     for index in range(3, 1000000):
-        if eager_cache[index] == 0:
-            print("finding cycle len of ", index)
-            eager_cache[index] = collatz_cycle_len(index)
+        if EAGER_CACHE[index] == 0:
+            #print("finding cycle len of ", index)
+            EAGER_CACHE[index] = collatz_cycle_len(index)
+
+    # print("NUMBER OF VISITS: ", num_of_vists)
 
 # ------------
 # collatz_cycle_length
@@ -136,18 +86,18 @@ def collatz_cycle_len(num):
     #   the way and use the cycle len of num to determine the cycle len of each of
     #   these values
     #   index is the amount you subtract from the cycle length of the initial input in
-    #   order to find the cycle length of the value stored 
-    tb_cache = [num] 
+    #   order to find the cycle length of the value stored
+    tb_cache = [num]
     cycle_len = 1
 
-    assert len(eager_cache) == 1000000
+    assert len(EAGER_CACHE) == 1000000
 
     while num > 1:
 
         #   case in which you run into a value already in the eager cache
-        if num < len(eager_cache) and eager_cache[num] != 0: 
-                cycle_len = cycle_len + eager_cache[int(num)] - 1
-                num = 1
+        if num < len(EAGER_CACHE) and EAGER_CACHE[num] != 0:
+            cycle_len = cycle_len + EAGER_CACHE[int(num)] - 1
+            num = 1
         #   even number case
         elif num % 2 == 0:
             num = num // 2
@@ -163,16 +113,10 @@ def collatz_cycle_len(num):
     #   going back through traceback_cache and calculated cycle lengths for
     #   each value based on the cycle len of num
     for index in range(len(tb_cache)):
-        #print(tb_cache)
         val = tb_cache[index]
-        if val < len(eager_cache) and val != 0 and eager_cache[val] == 0:  # value must be within the given bounds
-            # print("eager_cache[", val, "]", "=", cycle_len, "-", index)
-            eager_cache[val] = cycle_len - index
-
-    """
-    for index in range(0, 21):
-        print(eager_cache[index])
-    """
+        if val < len(EAGER_CACHE) and val != 0 and EAGER_CACHE[val] == 0:
+            #print("EAGER_CACHE[", val, "]", "=", cycle_len, "-", index)
+            EAGER_CACHE[val] = cycle_len - index
 
     return cycle_len
 
@@ -202,13 +146,12 @@ def collatz_solve(input_str, result):
     input_str is a reader
     result is a writer
     """
-
-    random = eager_cache_init(0)
-
-    assert eager_cache[4] is 3
-    #assert eager_cache[8] is 4
-
-    print("cache filled")
+    eager_cache_init()
+    # print("cache filled")
+    """
+    for index in range(999899, 1000000):
+        print(eager_cache[index])
+    """
 
     for val in input_str:
         if not val.strip():
