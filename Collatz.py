@@ -7,7 +7,7 @@
 # ---------------------------
 
 
-EAGER_CACHE = [0] * 1000000
+CACHE = [0] * 1000000
 MAX_VAL = 837799  #   value with the largest cycle length in the range
 MAX_CL = 525
 
@@ -38,11 +38,9 @@ def collatz_eval(start, end):
     """
     # <your code>
 
-    if EAGER_CACHE[1] == 0:
-        eager_cache_init()
-
     first = min(start, end) #   first val in the range
     last = max(start, end) #    last val in the range
+    curr_cl = 0
     mcl = 0  #   stores the max cycle length
 
     assert first > 0
@@ -58,27 +56,15 @@ def collatz_eval(start, end):
         first = middle
 
     for num in range(first , last + 1):
-        if EAGER_CACHE[num] > mcl:
-            mcl = EAGER_CACHE[num]
+        if CACHE[num] != 0 :
+            curr_cl = CACHE[num]
+        else :
+            curr_cl = collatz_cycle_len(num)
+
+        if curr_cl > mcl:
+            mcl = curr_cl
 
     return mcl
-
-def eager_cache_init():
-
-    EAGER_CACHE[0] = 0 #    place holder, so cyc len can be looked up directly by value
-    EAGER_CACHE[1] = 1
-    EAGER_CACHE[2] = 2
-
-    # fill in eager cache with powers of 2
-    for power in range(2, 20):
-        EAGER_CACHE[2 ** power] = power + 1
-
-    for index in range(3, 1000000):
-        if EAGER_CACHE[index] == 0:
-            #print("finding cycle len of ", index)
-            EAGER_CACHE[index] = collatz_cycle_len(index)
-
-    # print("NUMBER OF VISITS: ", num_of_vists)
 
 # ------------
 # collatz_cycle_length
@@ -97,13 +83,12 @@ def collatz_cycle_len(num):
     tb_cache = [num]
     cycle_len = 1
 
-    assert len(EAGER_CACHE) == 1000000
 
     while num > 1:
 
         #   case in which you run into a value already in the eager cache
-        if num < len(EAGER_CACHE) and EAGER_CACHE[num] != 0:
-            cycle_len = cycle_len + EAGER_CACHE[num] - 1
+        if num < len(CACHE) and CACHE[num] != 0:
+            cycle_len = cycle_len + CACHE[num] - 1
             num = 1 #   to exit the while loop
 
         #   even number case
@@ -122,9 +107,9 @@ def collatz_cycle_len(num):
     #   going back through traceback_cache and calculated cycle lengths for
     #   each value based on the cycle len of num
     for index, item in enumerate(tb_cache):
-        if item < len(EAGER_CACHE) and item != 0 and EAGER_CACHE[item] == 0:
+        if item < len(CACHE) and item != 0 and CACHE[item] == 0:
             #print("EAGER_CACHE[", val, "]", "=", cycle_len, "-", index)
-            EAGER_CACHE[item] = cycle_len - index
+            CACHE[item] = cycle_len - index
 
     return cycle_len
 
