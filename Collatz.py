@@ -112,11 +112,11 @@ def collatz_cycle_len(num):
 
     #   going back through traceback_cache and calculated cycle lengths for
     #   each value based on the cycle len of num
-    for index in range(len(tb_cache)):
-        val = tb_cache[index]
-        if val < len(EAGER_CACHE) and val != 0 and EAGER_CACHE[val] == 0:
+    for index, item in enumerate(tb_cache):
+    #for index in range(len(tb_cache)):
+        if item < len(EAGER_CACHE) and item != 0 and EAGER_CACHE[item] == 0:
             #print("EAGER_CACHE[", val, "]", "=", cycle_len, "-", index)
-            EAGER_CACHE[val] = cycle_len - index
+            EAGER_CACHE[item] = cycle_len - index
 
     return cycle_len
 
