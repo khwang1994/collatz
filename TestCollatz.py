@@ -115,7 +115,8 @@ class TestCollatz (TestCase):
             result.getvalue(), "1 1 1\n2 2 2\n3 3 8\n4 4 3\n")
 
     def test_solve_3(self):
-        input_str = StringIO("3 4545\n9987 77833\n837799 837799\n38949 39734\n")
+        input_str = StringIO(
+            "3 4545\n9987 77833\n837799 837799\n38949 39734\n")
         result = StringIO()
         collatz_solve(input_str, result)
         self.assertEqual(
@@ -146,7 +147,7 @@ OK
 Name             Stmts   Miss Branch BrPart  Cover   Missing
 ------------------------------------------------------------
 Collatz.py          53      1     24      1    97%   147, 146->147
-TestCollatz.py      69      0      0      0   100%   
+TestCollatz.py      69      0      0      0   100%
 ------------------------------------------------------------
-TOTAL              122      1     24      1    99%   
+TOTAL              122      1     24      1    99%
 """
