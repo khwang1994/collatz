@@ -6,6 +6,7 @@
 # Glenn P. Downing
 # ---------------------------
 
+
 EAGER_CACHE = [0] * 1000000
 MAX_VAL = 837799  #   value with the largest cycle length in the range
 MAX_CL = 525
@@ -37,20 +38,25 @@ def collatz_eval(start, end):
     """
     # <your code>
 
+    if EAGER_CACHE[1] == 0:
+        eager_cache_init()
+
     first = min(start, end) #   first val in the range
     last = max(start, end) #    last val in the range
-    mcl = EAGER_CACHE[first]    #   stores the max cycle length
+    mcl = 0  #   stores the max cycle length
 
     assert first > 0
     assert last < 1000000
     assert first <= last
 
-    """
+    #   max cycle length optimization
     if first <= MAX_VAL <= last :
         return MAX_CL
-    """
 
-    for num in range(first + 1, last + 1):
+    if first < (last // 2 + 1) :
+        first = last // 2 + 1
+
+    for num in range(first , last + 1):
         if EAGER_CACHE[num] > mcl:
             mcl = EAGER_CACHE[num]
 
@@ -146,7 +152,6 @@ def collatz_solve(input_str, result):
     input_str is a reader
     result is a writer
     """
-    eager_cache_init()
     # print("cache filled")
     """
     for index in range(999899, 1000000):
