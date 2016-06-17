@@ -1,3 +1,15 @@
+commit 3ba742e7ebc10309be6736734e86dbad34cf21de
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Fri Jun 17 04:22:27 2016 -0500
+
+    Added some comments
+
+commit 0ef2caf04a6531431fd19ddbc1737f947a9260e1
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Fri Jun 17 04:11:41 2016 -0500
+
+    Adding git log
+
 commit 7cd105078286d183fec461afb64e842d3e5c863f
 Author: Kevin Hwang <kh1994@cs.utexas.edu>
 Date:   Fri Jun 17 04:09:43 2016 -0500
