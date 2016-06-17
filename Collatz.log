@@ -1,0 +1,119 @@
+commit 8f7b3e01b7232e63f3f8af0e591cf56d2e005b95
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Fri Jun 17 03:34:53 2016 -0500
+
+    Completed TestCollatz
+
+commit f69f737867587314e511bd2b4b710ecd27305a59
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Fri Jun 17 02:47:35 2016 -0500
+
+    Accepted by Sphere yas
+
+commit 11a856b4fddb9944f9eecd0f31a58b964c2e0295
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Fri Jun 17 02:34:42 2016 -0500
+
+    Saving being I attempt lazy cache
+
+commit a0c4505da569b6e016c96c65449ae09358e13fa9
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Fri Jun 17 01:42:21 2016 -0500
+
+    Works but too slow for Sphere
+
+commit e2aec75edc0e26501839b078afa5d8bd11aa8814
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Fri Jun 17 01:01:45 2016 -0500
+
+    Used enumerate in tb_cache iteration
+
+commit 1e3f17933a3063b445150b26d015644014531ade
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Fri Jun 17 00:44:43 2016 -0500
+
+    Added max cyc len optimization
+
+commit 27ca4b3ed868a47ef551165350c79a33767f8663
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Thu Jun 16 13:23:16 2016 -0500
+
+    'Successful' eager and traceback cache
+
+commit a51f06d71fb0bc22f711a61adec2268e83e82070
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Thu Jun 16 02:56:03 2016 -0500
+
+    saving work for tonight
+
+commit 457aafa6140de06e2cd25e09c21481b8ef097846
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Thu Jun 16 01:52:23 2016 -0500
+
+    Added eager cache and traceback cache
+
+commit 282b4f91e36a7b534da9a194fcc7075b3a2c4cca
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Thu Jun 16 00:04:01 2016 -0500
+
+    Make cycle length cal a seperate function
+
+commit 0211b066940828491e6f1fbc9b73ac4581efbcbb
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Wed Jun 15 23:46:02 2016 -0500
+
+    At least doesn't hit runtime error now
+
+commit 86a09b59c67c73766fe9404ba58769bc54abc2d0
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Tue Jun 14 18:16:13 2016 -0500
+
+    Optimization 1 + attempt to do cache
+
+commit afbbe86402abb06d76a9a2d0c66ba26e58dbe20e
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Tue Jun 14 12:34:31 2016 -0500
+
+    Stupid soln #1
+
+commit 3d3f55c24401ca94581b85cf6ecb90684aa26653
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Tue Jun 14 12:33:55 2016 -0500
+
+    Acceptance test with correct answer
+
+commit 119d0389545649a2befe6a6e78f995ff720b57f7
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Tue Jun 14 02:14:17 2016 -0500
+
+    fix var names to pass pylint
+
+commit b0b0941033fb9dbb7601e8489fe993fb9caa7eda
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Mon Jun 13 16:04:21 2016 -0500
+
+    Adding travis file
+
+commit 412874b0c42393f476f8b4137c215fbb029f2db8
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Mon Jun 13 15:49:34 2016 -0500
+
+    Removing files
+
+commit e23ec47b68489dfeb3cbf70e6751f2528a6fd709
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Mon Jun 13 15:47:42 2016 -0500
+
+    Removing files
+
+commit 4e000facb40a15a1760f74ca47171fabff01ec74
+Author: Kevin Hwang <kh1994@cs.utexas.edu>
+Date:   Mon Jun 13 15:36:41 2016 -0500
+
+    Adding initial files
+
+commit 5f516072741f57f6d5ef9f9ad2ef48144d58affb
+Author: Kevin Hwang <khwang1994@yahoo.com>
+Date:   Thu Jun 9 15:11:48 2016 -0500
+
+    Initial commit
