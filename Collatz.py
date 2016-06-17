@@ -53,8 +53,9 @@ def collatz_eval(start, end):
     if first <= MAX_VAL <= last :
         return MAX_CL
 
-    if first < (last // 2 + 1) :
-        first = last // 2 + 1
+    middle = (last >> 1) + 1
+    if first < middle :
+        first = middle
 
     for num in range(first , last + 1):
         if EAGER_CACHE[num] > mcl:
@@ -102,24 +103,25 @@ def collatz_cycle_len(num):
 
         #   case in which you run into a value already in the eager cache
         if num < len(EAGER_CACHE) and EAGER_CACHE[num] != 0:
-            cycle_len = cycle_len + EAGER_CACHE[int(num)] - 1
-            num = 1
+            cycle_len = cycle_len + EAGER_CACHE[num] - 1
+            num = 1 #   to exit the while loop
+
         #   even number case
         elif num % 2 == 0:
-            num = num // 2
+            num >>= 1   # divide num by 2
             cycle_len += 1
             tb_cache += [num]
 
         #   odd number case
         else:
-            num = (3 * num + 1) // 2
+            num = num + (num >> 1) + 1
             cycle_len += 2
             tb_cache += [0, num]
+
 
     #   going back through traceback_cache and calculated cycle lengths for
     #   each value based on the cycle len of num
     for index, item in enumerate(tb_cache):
-    #for index in range(len(tb_cache)):
         if item < len(EAGER_CACHE) and item != 0 and EAGER_CACHE[item] == 0:
             #print("EAGER_CACHE[", val, "]", "=", cycle_len, "-", index)
             EAGER_CACHE[item] = cycle_len - index
