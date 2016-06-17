@@ -7,9 +7,9 @@
 # ---------------------------
 
 
-CACHE = [0] * 1000000
+CACHE = [0] * 1000000   # lazy cache
 MAX_VAL = 837799  # value with the largest cycle length in the range
-MAX_CL = 525
+MAX_CL = 525    # MAX_VAL's cycle length
 
 # ------------
 # collatz_read
